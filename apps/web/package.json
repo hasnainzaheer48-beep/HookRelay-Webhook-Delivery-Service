@@ -11,6 +11,7 @@
   "dependencies": {
     "@hookrelay/shared": "workspace:*",
     "@next/env": "16.4.5",
+    "better-auth": "^1.7.20",
     "class-variance-authority": "^0.7.1",
     "cn": "^0.5.2",
     "lucide-react": "^1.70.0",
