@@ -1,10 +1,16 @@
+
+import getSession from "@/lib/session";
 import { loadEnv } from "@hookrelay/shared";
+
 
 
 export default function Home()
 {
   const env = loadEnv();
   const dbHost = new URL(env.DATABASE_URL).host;
+  
+  const session = getSession();
+  console.log(session);
 
   return (
      <main className="p-8">

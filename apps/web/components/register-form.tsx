@@ -5,10 +5,11 @@ import { Input } from "./ui/input";
 import { toast } from "sonner";
 import { Button } from "./ui/button";
 import {  signUp } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
 
 export default function RegisterForm()
 {
-
+    const router = useRouter();
     const handleSubmit = async(evt: React.FormEvent<HTMLFormElement> ) => {
         evt.preventDefault();
         const formData = new FormData(evt.target as HTMLFormElement)
@@ -30,7 +31,10 @@ export default function RegisterForm()
             onError: (err) => {
                 toast.error(err.error.message);
             },
-            onSuccess: () => {}
+            onSuccess: () => { 
+                router.push("/dashboard")
+                router.refresh()
+            }
          }   
     )
     }
