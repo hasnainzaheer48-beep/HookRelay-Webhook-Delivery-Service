@@ -30,7 +30,7 @@ export default function LoginForm()
             onError: (err) => {
                 toast.error(err.error.message);
             },
-            onSuccess: () => { router.push("/dashboard")
+            onSuccess: () => { router.push("/endpoints")
                 router.refresh();
              }
         }

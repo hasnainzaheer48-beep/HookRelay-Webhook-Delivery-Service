@@ -32,7 +32,7 @@ export default function RegisterForm()
                 toast.error(err.error.message);
             },
             onSuccess: () => { 
-                router.push("/dashboard")
+                router.push("/endpoints")
                 router.refresh()
             }
          }   
