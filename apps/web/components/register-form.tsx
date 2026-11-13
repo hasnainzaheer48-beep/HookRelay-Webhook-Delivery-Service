@@ -4,6 +4,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "./ui/input";
 import { toast } from "sonner";
 import { Button } from "./ui/button";
+import {  signUp } from "@/lib/auth-client";
 
 export default function RegisterForm()
 {
@@ -18,7 +19,20 @@ export default function RegisterForm()
         const password = String(formData.get("password"));
         if(!password) return toast.error("Please Enter Your Password");
 
-        console.log({name, email, password});
+        await signUp.email({
+            name,
+            email,
+            password,
+        },
+         {
+            onRequest: () => {},
+            onResponse: () => {},
+            onError: (err) => {
+                toast.error(err.error.message);
+            },
+            onSuccess: () => {}
+         }   
+    )
     }
 
     return <form onSubmit={handleSubmit} className="max-w-sm w-full space-y-4">
