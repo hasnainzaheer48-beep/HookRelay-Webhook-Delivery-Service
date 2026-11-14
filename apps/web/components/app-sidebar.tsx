@@ -36,7 +36,7 @@ const navigation = [
   },
   {
     title: "Metrics",
-    url: "/Metrics",
+    url: "/metrics",
     icon: ChartNoAxesCombined
   },
   {
@@ -62,13 +62,13 @@ export function AppSidebar({user}: AppSidebarProps) {
   return (
     <Sidebar variant="floating" collapsible="icon">
       <SidebarHeader>
-          Hook Relay
+          {isCollapsed? "HR" : "Hook Relay"}
       </SidebarHeader>
       <SidebarContent>
   <SidebarGroup>
     <SidebarGroupLabel>Platform</SidebarGroupLabel>
         <SidebarGroupContent>
-          <SidebarMenu>
+          <SidebarMenu className="gap-2">
             {navigation.map((item) => (
               <SidebarMenuItem key={item.title}>
                 <SidebarMenuButton asChild tooltip={item.title}  isActive = {path === item.url}>

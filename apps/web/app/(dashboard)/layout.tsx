@@ -4,6 +4,8 @@ import getSession from "@/lib/session"
 import { redirect } from "next/navigation";
 import { TooltipProvider } from "@/components/ui/tooltip";
 
+export const instant = false;
+
 export default async function DashboardLayout({
   children,
 }: {
