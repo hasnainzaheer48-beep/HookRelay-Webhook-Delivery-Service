@@ -1,0 +1,19 @@
+services:
+  postgres:
+    image: postgres:18
+    environment:
+      - POSTGRES_USER=hook
+      - POSTGRES_PASSWORD=hook
+      - POSTGRES_DB=hookrelay
+    ports:
+      - 5433:5432
+    volumes:
+      - hookrelay-pgdata:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U hook -d hookrelay"]
+      timeout: 5s
+      interval: 5s
+      retries: 10
+
+volumes:
+  hookrelay-pgdata:
