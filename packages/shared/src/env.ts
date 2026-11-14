@@ -3,6 +3,7 @@ import { z } from 'zod';
 const schema = z.object({
   DATABASE_URL: z.string().url(),
   NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
+  REDIS_URL: z.string().url().startsWith("redis://")
 });
 
 export type Env = z.infer<typeof schema>;
