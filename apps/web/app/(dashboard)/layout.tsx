@@ -2,6 +2,7 @@ import { AppSidebar } from "@/components/app-sidebar";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import getSession from "@/lib/session"
 import { redirect } from "next/navigation";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 export default async function DashboardLayout({
   children,
@@ -16,13 +17,16 @@ export default async function DashboardLayout({
     
   return (
    <>
+   <TooltipProvider>
+
         <SidebarProvider>
-        <AppSidebar/>
+        <AppSidebar user = {session.user} />
         <main>
         <SidebarTrigger/>
           {children}
           </main>
         </SidebarProvider>
+   </TooltipProvider>
    </>
       
   )

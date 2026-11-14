@@ -4,8 +4,14 @@ import { useRouter } from "next/navigation"
 import { Button } from "./ui/button"
 import { signOut } from "@/lib/auth-client";
 import {toast} from "sonner"
+import { LogOut } from "lucide-react";
 
-export default function SignOutButton()
+
+interface SignOutButtonProps {
+  collapsed?: boolean;
+}
+
+export default function SignOutButton({collapsed = false}: SignOutButtonProps)
 {
     const router = useRouter();
     const handleClick = async() => {
@@ -18,8 +24,12 @@ export default function SignOutButton()
     }
 
     return(
-            <div>
-            <Button onClick={handleClick} size='sm' variant="destructive" >Sign Out</Button>
-            </div>
+            <Button
+                onClick={handleClick}
+                size="sm"
+                variant="destructive"
+                className="w-full">
+            <LogOut />{!collapsed && "Sign Out"}
+            </Button>
         )
 }
