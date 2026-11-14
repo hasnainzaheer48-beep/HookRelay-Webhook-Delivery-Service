@@ -71,7 +71,7 @@ export function AppSidebar({user}: AppSidebarProps) {
           <SidebarMenu className="gap-2">
             {navigation.map((item) => (
               <SidebarMenuItem key={item.title}>
-                <SidebarMenuButton asChild tooltip={item.title}  isActive = {path === item.url}>
+                <SidebarMenuButton asChild tooltip={item.title}  isActive = {path?.startsWith(item.url) }>
                   <Link href={item.url}>
                     <item.icon />
                     <span>{item.title}</span>

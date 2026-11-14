@@ -1,19 +1,23 @@
+import getSession from "@/lib/session";
+import { redirect } from "next/navigation";
 
-import { loadEnv } from "@hookrelay/shared";
 
-
-
-export default function Home()
+export default async function Home()
 {
-  const env = loadEnv();
-  const dbHost = new URL(env.DATABASE_URL).host;
+  const session = await getSession();
+  if(!session)
+  {
+    redirect("/auth/login")
+  }
+  else{
+    redirect("/endpoints")
+  }
   
  
 
   return (
      <main className="p-8">
       <h1 className="text-2xl font-bold">HookRelay</h1>
-      <p>Database host: {dbHost}</p>
     </main>
   );
 }
