@@ -17,6 +17,7 @@ export const redis =
   new Redis(redisUrl, {
     lazyConnect: true,
     connectTimeout: 1000,
+    commandTimeout: 1000,
     maxRetriesPerRequest:2 ,
   });
 
