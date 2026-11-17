@@ -3,6 +3,7 @@
 import getSession from "@/lib/session"
 import { generateEndpointToken } from "@/lib/utils";
 import {prisma, z} from '@hookrelay/shared'
+import { revalidatePath } from "next/cache";
 
 
 const typeNameRegex = /^[a-z0-9._]+$/;
@@ -61,6 +62,8 @@ export async function createEndpoint(formData: FormData) {
             userId: session.user.id
         }
     })
+
+    revalidatePath('/endpoints')
     
 
 }
