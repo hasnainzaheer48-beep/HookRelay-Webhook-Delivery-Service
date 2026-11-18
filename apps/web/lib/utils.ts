@@ -7,4 +7,9 @@ const  generateEndpointToken = (prefix: string, ByteSize: number) : string => {
     return `${prefix}${token}`
 }
 
-export {generateEndpointToken}
+const  generateAPIToken = (prefix: string, ByteSize: number) : string => {
+    const token = randomBytes(ByteSize).toString('base64url');
+    return `${prefix}${token}`
+}
+
+export {generateEndpointToken, generateAPIToken}
