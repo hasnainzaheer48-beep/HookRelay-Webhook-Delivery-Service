@@ -3,7 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { createEndpoint } from "../actions";
 
-export default function Form()
+export default function CreateEndpointForm()
 {
     return(
             <form action={createEndpoint} className="max-w-sm w-full space-y-4">

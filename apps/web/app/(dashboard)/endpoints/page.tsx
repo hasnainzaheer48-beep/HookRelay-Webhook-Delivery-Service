@@ -1,5 +1,5 @@
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import Form from "./ui/createForm";
+import CreateEndpointForm from "./ui/createEndpointForm";
 import { Button } from "@/components/ui/button";
 
 export default async function Page()
@@ -26,7 +26,7 @@ export default async function Page()
                     Register a new Endpoint.
             </DialogDescription>
             </DialogHeader>
-            <Form />
+            <CreateEndpointForm />
             </DialogContent>
             </Dialog>
 
