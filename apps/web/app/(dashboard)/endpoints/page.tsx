@@ -42,12 +42,6 @@ export default async function Page()
             </Dialog>
 
         <DataTable columns={columns} data={records} />
-
-
-
-
-
-            
             </div>
         )
 }

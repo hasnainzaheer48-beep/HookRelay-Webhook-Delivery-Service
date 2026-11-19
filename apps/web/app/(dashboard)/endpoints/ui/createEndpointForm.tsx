@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { createEndpoint } from "../actions";
+import { createEndpoint } from "../../../../actions/endpoint.actions";
 
 export default function CreateEndpointForm()
 {

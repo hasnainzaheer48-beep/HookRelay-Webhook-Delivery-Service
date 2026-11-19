@@ -12,8 +12,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
+import { redirect } from "next/navigation"
+
+
 export interface Endpoint {
   id: string;
   url: string;
@@ -70,7 +71,8 @@ export const columns = columnHelper.columns([
               Copy Endpoint ID
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>View Details</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => redirect(`/endpoints/${endpoint.id}`)} >View Details</DropdownMenuItem>
+            <DropdownMenuItem>Edit Endpoint</DropdownMenuItem>
             <DropdownMenuItem>Delete Endpoint</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
