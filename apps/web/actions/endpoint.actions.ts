@@ -8,12 +8,12 @@ import { createEndpointService, editEndpointService } from "@/services/endpoint.
 
 
 //Create Endpoint
-export async function createEndpoint(formData: FormData) {
+export async function createEndpoint(initialState: any, formData: FormData) {
     
     const session = await getSession()
     //This checks if user is authenticated
     if(!session?.user) {
-        throw new Error('Unauthorized')
+        return { message: "Unauthorized" };
     }
 
     //this will check fordata using Zod
@@ -28,14 +28,21 @@ export async function createEndpoint(formData: FormData) {
     //checks if validation is succesful
     if(!result.success)
     {
-        const problems = result.error.issues.map((i) => `  - ${i.path.join('.')}: ${i.message}`).join('\n');
-        throw new Error(`Invalid Inputs:\n${problems}`);
+       return {
+      message: result.error.flatten().fieldErrors,
+    }
     }
 
-    //this sends data to the create endpoint prisma service
-    await createEndpointService({...result.data , userId: session.user.id})
-
-    revalidatePath('/endpoints')
+    try {
+        //this sends data to the create endpoint prisma service
+        await createEndpointService({...result.data , userId: session.user.id})
+    
+        revalidatePath('/endpoints')
+        return {message: "Endpoint created succesfully"}
+        
+    } catch (error) {
+        return {message: "Failed to create the endpoint"}
+    }
     
 
 }
@@ -64,4 +71,6 @@ export async function editEndpoint(endpointId: string,  formData: FormData) {
 
     //this sends data to the create endpoint prisma service
     await editEndpointService(endpointId , {...result.data, userId: session.user.id})
+    
+    revalidatePath('/endpoints')
 }

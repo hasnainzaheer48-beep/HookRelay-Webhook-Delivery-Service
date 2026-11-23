@@ -27,7 +27,7 @@ export default function EditEndpointForm(endpoint : EndpointInterface )
                     </div>
                     <div className="space-y-2">
                     <Label htmlFor="description">Description </Label> 
-                    <Input  type="text" id="description" name="description" defaultValue={description? description: ""} required />
+                    <Input  type="text" id="description" name="description" defaultValue={description? description: ""}  />
                     </div>
                     <div className="space-y-2">
                     <Label htmlFor="eventTypes">Event Types </Label> 

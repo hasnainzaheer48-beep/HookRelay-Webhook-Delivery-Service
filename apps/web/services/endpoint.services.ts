@@ -18,7 +18,7 @@ userId: string
              eventTypes,
              rateLimitPerSec,
              userId,
-             createdAt: new Date().toLocaleDateString()
+             createdAt: new Date()
             }
         })
     }
@@ -36,7 +36,7 @@ export async function editEndpointService(endpointId: string, endpointData : end
             description,
             eventTypes,
             rateLimitPerSec,
-            updatedAt: new Date().toLocaleDateString()
+            updatedAt: new Date()
         }
     })
 }
