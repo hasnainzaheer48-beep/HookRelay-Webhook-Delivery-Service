@@ -5,11 +5,16 @@ import { DataTable } from "./ui/data-table";
 import { columns } from "./ui/columns";
 import { prisma } from "@hookrelay/shared";
 import getSession from "@/lib/session";
+import { redirect } from "next/navigation";
 
 export default async function Page()
 {
    
     const session = await getSession()
+    if(!session?.user)
+    {
+        redirect("/auth/login")
+    }
     const records = await prisma.endpoint.findMany({
         where: {
             userId: session?.user.id

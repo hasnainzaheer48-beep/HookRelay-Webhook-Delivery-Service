@@ -1,5 +1,6 @@
 import getSession from "@/lib/session";
 import { prisma } from "@hookrelay/shared";
+import { notFound, redirect } from "next/navigation";
 
 export default async function Page({
   params,
@@ -7,9 +8,13 @@ export default async function Page({
   params: Promise<{ id: string }>;
 })
 {
-   
+   const session = await getSession()
+       if(!session?.user)
+       {
+           redirect("/auth/login")
+       }
     const {id} = await params
-    const session = await getSession();
+  
     const data = await prisma.endpoint.findFirst({
     where: {
         userId: session?.user.id,
@@ -17,6 +22,10 @@ export default async function Page({
     }
    })
     
+   if(!data)
+   {
+       notFound()
+   }
  const {
   createdAt,
   description,
@@ -28,7 +37,7 @@ export default async function Page({
   updatedAt,
   url,
   userId,
-} = data ?? {};
+} = data;
     return(
             <div className="px-8 py-16 container mx-auto max-w-full space-y-8  ">
     

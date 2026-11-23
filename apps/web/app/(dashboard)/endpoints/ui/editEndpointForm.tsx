@@ -3,7 +3,6 @@ import { editEndpoint } from "@/actions/endpoint.actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { EndpointInterface } from "@/interfaces/endpoint.interface";
 import { useActionState } from "react";
 
 const initialState = {
