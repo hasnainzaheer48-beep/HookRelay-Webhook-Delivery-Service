@@ -17,7 +17,26 @@ userId: string
              description,
              eventTypes,
              rateLimitPerSec,
-             userId
+             userId,
+             createdAt: new Date().toLocaleDateString()
             }
         })
     }
+
+export async function editEndpointService(endpointId: string, endpointData : endpointData)
+{   
+    const {url , description, eventTypes, rateLimitPerSec} = endpointData   
+    
+    await prisma.endpoint.update({
+        where: {
+            id: endpointId
+        },
+        data: {
+            url,
+            description,
+            eventTypes,
+            rateLimitPerSec,
+            updatedAt: new Date().toLocaleDateString()
+        }
+    })
+}

@@ -58,7 +58,7 @@ export const columns = columnHelper.columns([
     cell: ({ row }) => {
       const endpoint = row.original
  const router = useRouter()
- const [isEditOpen, setIsEditOpen] = useState(false)
+ 
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -92,7 +92,7 @@ export const columns = columnHelper.columns([
         Edit your endpoint details.
       </DialogDescription>
     </DialogHeader>
-    <EditEndpointForm />
+    <EditEndpointForm {...endpoint} />
   </DialogContent>
 </Dialog>
             <DropdownMenuItem>Delete Endpoint</DropdownMenuItem>
