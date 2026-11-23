@@ -1,26 +1,35 @@
+"use client"
 import { editEndpoint } from "@/actions/endpoint.actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { EndpointInterface } from "@/interfaces/endpoint.interface";
+import { useActionState } from "react";
 
+const initialState = {
+  message: '',
+}
 
-export default function EditEndpointForm(endpoint : EndpointInterface )
+export default function EditEndpointForm(endpoint :  {
+  id: string;
+  url: string;
+  status: "active" | "paused" | "disabled"
+  rateLimitPerSec: number; 
+  description: string | null;
+  eventTypes: string[];
+} )
+
 {
     const {id,
         url,
-        status,
         rateLimitPerSec,
-        createdAt,
-        updatedAt ,
-        userId,
         description,
-        secret,
         eventTypes,
-        disabledReason } = endpoint
-        const editEndpointWithId = editEndpoint.bind(null, id)
+    } = endpoint
+    const editEndpointWithId = editEndpoint.bind(null, id)
+    const [state, formAction, pending] = useActionState(editEndpointWithId, initialState)
     return(
-            <form action={editEndpointWithId} className="max-w-sm w-full space-y-4">
+            <form action={formAction} className="max-w-sm w-full space-y-4">
                     <div className="space-y-2">
                     <Label htmlFor="url">URL </Label> 
                     <Input  type="text" id="url" name="url" defaultValue={url} required />
@@ -31,7 +40,7 @@ export default function EditEndpointForm(endpoint : EndpointInterface )
                     </div>
                     <div className="space-y-2">
                     <Label htmlFor="eventTypes">Event Types </Label> 
-                    <Input  type="eventTypes" id="eventTypes" name="eventTypes" defaultValue={eventTypes} required />
+                    <Input  type="eventTypes" id="eventTypes" name="eventTypes" defaultValue={eventTypes.join(", ")} required />
                     </div>
                     <div className="space-y-2">
                     <Label htmlFor="rateLimitPerSec">Rate Limit Per Second </Label> 

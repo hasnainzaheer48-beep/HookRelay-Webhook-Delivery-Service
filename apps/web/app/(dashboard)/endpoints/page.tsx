@@ -13,6 +13,15 @@ export default async function Page()
     const records = await prisma.endpoint.findMany({
         where: {
             userId: session?.user.id
+        },
+        select: {
+            id: true,
+            url: true,
+            status: true,
+            rateLimitPerSec: true,
+            createdAt: true,
+            description: true,
+            eventTypes: true
         }
     })
 

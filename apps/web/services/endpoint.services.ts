@@ -1,6 +1,7 @@
 import { generateEndpointToken } from "@/lib/utils"
 import { endpointSchema } from "@/schemas/endpoint.schema"
 import { prisma, z } from "@hookrelay/shared"
+import { notFound } from "next/navigation"
 
 type endpointData = z.infer<typeof endpointSchema> & {
 userId: string
@@ -25,11 +26,12 @@ userId: string
 
 export async function editEndpointService(endpointId: string, endpointData : endpointData)
 {   
-    const {url , description, eventTypes, rateLimitPerSec} = endpointData   
+    const {url , description, eventTypes, rateLimitPerSec, userId} = endpointData   
     
-    await prisma.endpoint.update({
+    const db = await prisma.endpoint.updateMany({
         where: {
-            id: endpointId
+            id: endpointId,
+            userId: userId
         },
         data: {
             url,
@@ -39,4 +41,9 @@ export async function editEndpointService(endpointId: string, endpointData : end
             updatedAt: new Date()
         }
     })
+
+    if(db.count === 0)
+    {
+        throw new Error("Not Found", notFound())
+    }
 }
