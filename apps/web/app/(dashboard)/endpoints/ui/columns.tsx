@@ -12,7 +12,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { redirect } from "next/navigation"
+import { redirect, useRouter } from "next/navigation"
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import { useState } from "react"
+import EditEndpointForm from "./editEndpointForm"
 
 
 export interface Endpoint {
@@ -54,7 +57,8 @@ export const columns = columnHelper.columns([
     id: "actions",
     cell: ({ row }) => {
       const endpoint = row.original
- 
+ const router = useRouter()
+ const [isEditOpen, setIsEditOpen] = useState(false)
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -71,8 +75,26 @@ export const columns = columnHelper.columns([
               Copy Endpoint ID
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={() => redirect(`/endpoints/${endpoint.id}`)} >View Details</DropdownMenuItem>
-            <DropdownMenuItem>Edit Endpoint</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => router.push(`/endpoints/${endpoint.id}`)} >View Details</DropdownMenuItem>
+           <Dialog>
+  <DialogTrigger asChild>
+    <DropdownMenuItem
+      onSelect={(e) => e.preventDefault()}
+    >
+      Edit Endpoint
+    </DropdownMenuItem>
+  </DialogTrigger>
+
+  <DialogContent>
+    <DialogHeader>
+      <DialogTitle>Edit Endpoint</DialogTitle>
+      <DialogDescription>
+        Edit your endpoint details.
+      </DialogDescription>
+    </DialogHeader>
+    <EditEndpointForm />
+  </DialogContent>
+</Dialog>
             <DropdownMenuItem>Delete Endpoint</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
