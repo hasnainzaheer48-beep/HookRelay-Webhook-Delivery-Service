@@ -79,6 +79,7 @@ export async function editEndpoint( endpointId: string, initialState: any,  form
         return {message: "Endpoint edited succesfully"}
         
     } catch (error) {
+        console.error(error)
         return {message: "Failed to edit the endpoint"}
     }
 

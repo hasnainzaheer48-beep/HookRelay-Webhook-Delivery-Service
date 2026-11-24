@@ -39,12 +39,19 @@ export default function EditEndpointForm(endpoint :  {
                     </div>
                     <div className="space-y-2">
                     <Label htmlFor="eventTypes">Event Types </Label> 
-                    <Input  type="eventTypes" id="eventTypes" name="eventTypes" defaultValue={eventTypes.join(", ")} required />
+                    <Input  type="text" id="eventTypes" name="eventTypes" defaultValue={eventTypes.join(", ")}  />
                     </div>
                     <div className="space-y-2">
                     <Label htmlFor="rateLimitPerSec">Rate Limit Per Second </Label> 
                     <Input  type="number" id="rateLimitPerSec" name="rateLimitPerSec" defaultValue={rateLimitPerSec} required />
                     </div>
+                     <p aria-live="polite" className="text-red-600 ">
+                    {typeof state?.message === 'string'
+                        ? state.message
+                        : state?.message
+                        ? Object.values(state.message).flat().filter(Boolean).join(', ')
+                        : null}
+                    </p>
                     <Button type="submit" className="w-full " > Edit Endpoint </Button>    
         </form>
     )

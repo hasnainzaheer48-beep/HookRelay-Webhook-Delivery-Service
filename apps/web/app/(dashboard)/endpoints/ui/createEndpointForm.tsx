@@ -25,7 +25,7 @@ export default function CreateEndpointForm()
                     </div>
                     <div className="space-y-2">
                     <Label htmlFor="eventTypes">Event Types </Label> 
-                    <Input  type="eventTypes" id="eventTypes" name="eventTypes" required />
+                    <Input  type="text" id="eventTypes" name="eventTypes"  />
                     </div>
                     <div className="space-y-2">
                     <Label htmlFor="rateLimitPerSec">Rate Limit Per Second </Label> 

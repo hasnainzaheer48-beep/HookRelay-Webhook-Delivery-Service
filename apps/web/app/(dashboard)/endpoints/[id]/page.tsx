@@ -36,7 +36,6 @@ export default async function Page({
   status,
   updatedAt,
   url,
-  userId,
 } = data;
     return(
             <div className="px-8 py-16 container mx-auto max-w-full space-y-8  ">
@@ -44,8 +43,7 @@ export default async function Page({
             <div className="space-y-8 ">
                 <h1 className="text-3xl font-bold ">Endpoint Details</h1>
             </div>
-            ID: {ID} <br />
-            User Id: {userId} <br />
+            ID: {ID} <br />0
             URL: {url} <br />
             Status: {status} <br />
             Descripton: {description} <br />

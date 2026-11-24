@@ -44,6 +44,6 @@ export async function editEndpointService(endpointId: string, endpointData : end
 
     if(db.count === 0)
     {
-        throw new Error("Not Found", notFound())
+        throw new Error("Not Found")
     }
 }
