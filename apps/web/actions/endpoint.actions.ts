@@ -41,6 +41,7 @@ export async function createEndpoint(initialState: any, formData: FormData) {
         return {message: "Endpoint created succesfully"}
         
     } catch (error) {
+        console.error(error)
         return {message: "Failed to create the endpoint"}
     }
     

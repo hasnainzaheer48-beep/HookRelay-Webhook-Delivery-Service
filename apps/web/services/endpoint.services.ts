@@ -1,7 +1,7 @@
 import { generateEndpointToken } from "@/lib/utils"
 import { endpointSchema } from "@/schemas/endpoint.schema"
 import { prisma, z } from "@hookrelay/shared"
-import { notFound } from "next/navigation"
+
 
 type endpointData = z.infer<typeof endpointSchema> & {
 userId: string
