@@ -2,8 +2,8 @@
 
 import getSession from "@/lib/session"
 import { revalidatePath } from "next/cache";
-import { endpointSchema } from "@/schemas/endpoint.schema";
-import { createEndpointService, editEndpointService } from "@/services/endpoint.services";
+import { endpointSchema, endpointStatusSchema } from "@/schemas/endpoint.schema";
+import { createEndpointService, editEndpointService, editEndpointStatusService } from "@/services/endpoint.services";
 
 
 
@@ -83,5 +83,37 @@ export async function editEndpoint( endpointId: string, initialState: any,  form
         console.error(error)
         return {message: "Failed to edit the endpoint"}
     }
+
+}
+
+export async function editEndpointStatus(id: string, initialState: any, formData: FormData){
+    const session = await getSession()
+    //This checks if user is authenticated
+    if(!session?.user) {
+        return { message: "Unauthorized" };
+    }
+    
+    //this will check formdata using Zod
+    const result = endpointStatusSchema.safeParse(formData.get("status"))
+
+     //checks if validation is succesful
+    if(!result.success)
+    {
+         return {
+      message: result.error.flatten().fieldErrors,
+    }
+    }
+
+    try {
+         await editEndpointStatusService(id, {status: result.data , userId: session.user.id})
+        revalidatePath(`/endpoints/${id}`)
+        revalidatePath("/endpoints")
+        
+        return {message: "Endpoint Status Updated succesfully"}
+    } catch (error) {
+         console.error(error)
+        return {message: "Failed to edit the endpoint status"}
+    }
+
 
 }

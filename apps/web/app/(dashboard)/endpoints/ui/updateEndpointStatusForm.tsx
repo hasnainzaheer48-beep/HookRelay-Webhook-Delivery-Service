@@ -1,14 +1,14 @@
 "use client"
-import { editEndpoint } from "@/actions/endpoint.actions";
+import {  editEndpointStatus } from "@/actions/endpoint.actions";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { EndpointStatus } from "@hookrelay/shared/src/generated/prisma/enums";
 import { useActionState } from "react";
 
 interface endpointData{
-    status: "active" | "paused",
-    userId: string,
+    status: EndpointStatus,
+
     id: string
 }
 
@@ -28,9 +28,9 @@ export default function EditEndpointStatusForm(endpointData :  endpointData )
             <form action={formAction} className="max-w-sm w-full space-y-4">
                     
                 
-                    <Select name="status" required>
+                    <Select name="status" required defaultValue={status}>
                     <SelectTrigger className="w-45">
-                        <SelectValue placeholder="Select Status" defaultValue={status} />
+                        <SelectValue placeholder="Select Status"  />
                     </SelectTrigger>
                     <SelectContent >
                         <SelectGroup>

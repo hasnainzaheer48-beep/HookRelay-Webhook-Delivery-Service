@@ -53,7 +53,7 @@ export default async function Page({
             Rate Limit Per Second: {rateLimit} <br />
             Descripton: {description} <br />
             eventTypes: {eventTypes?.map((evt) => {
-                return <div><li>{evt}</li></div>
+                return <div key={evt}><li>{evt}</li></div>
             })} <br />
             Disabled Reason: {status === 'disabled' ? disabledReason : 'nill'} <br />
             Created At: {createdAt?.toLocaleDateString()} <br />
@@ -74,7 +74,10 @@ export default async function Page({
                     Update the status of endpoint
             </DialogDescription>
             </DialogHeader>
-            <EditEndpointStatusForm /> 
+            {
+                status !== 'disabled' &&
+            <EditEndpointStatusForm status={status} id={id}  /> 
+            }
             </DialogContent>
             </Dialog>
             </div>
