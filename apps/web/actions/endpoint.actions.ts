@@ -4,6 +4,7 @@ import getSession from "@/lib/session"
 import { revalidatePath } from "next/cache";
 import { endpointIdSchema, endpointSchema, endpointStatusSchema } from "@/schemas/endpoint.schema";
 import { createEndpointService, deleteEndpointService, editEndpointService, editEndpointStatusService } from "@/services/endpoint.services";
+import { success } from "better-auth";
 
 
 
@@ -38,11 +39,14 @@ export async function createEndpoint(initialState: any, formData: FormData) {
         await createEndpointService({...result.data , userId: session.user.id})
     
         revalidatePath('/endpoints')
-        return {message: "Endpoint created succesfully"}
+        return {success: true}
         
     } catch (error) {
         console.error(error)
-        return {message: "Failed to create the endpoint"}
+        return {
+            success: false,
+            message: "Failed to create the endpoint"
+        }
     }
     
 
@@ -77,11 +81,13 @@ export async function editEndpoint( endpointId: string, initialState: any,  form
         await editEndpointService(endpointId , {...result.data, userId: session.user.id})
         revalidatePath('/endpoints')
         
-        return {message: "Endpoint edited succesfully"}
+        return {  success: true}
         
     } catch (error) {
         console.error(error)
-        return {message: "Failed to edit the endpoint"}
+        return {
+            success: false,
+            message: "Failed to edit the endpoint"}
     }
 
 }
@@ -109,10 +115,12 @@ export async function editEndpointStatus(id: string, initialState: any, formData
         revalidatePath(`/endpoints/${id}`)
         revalidatePath("/endpoints")
         
-        return {message: "Endpoint Status Updated succesfully"}
+        return {  success: true}
     } catch (error) {
          console.error(error)
-        return {message: "Failed to edit the endpoint status"}
+        return {
+              success: false,
+            message: "Failed to edit the endpoint status"}
     }
 
 
@@ -137,7 +145,16 @@ export async function deleteEndpoint(endpointId: string)
     }
     }
 
-    await deleteEndpointService( endpointId, session.user.id)
-    revalidatePath("/endpoints")
+     try {
+         await deleteEndpointService( result.data , session.user.id)
+        revalidatePath("/endpoints")
+        
+        return {success: true}
+    } catch (error) {
+         console.error(error)
+        return {
+            success: false,
+            message: "Failed to edit the endpoint status"}
+    }
 
 }

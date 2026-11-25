@@ -45,7 +45,7 @@ export default function EditEndpointStatusForm(endpointData :  endpointData )
                     {typeof state?.message === 'string'
                         ? state.message
                         : state?.message
-                        ? Object.values(state.message).flat().filter(Boolean).join(', ')
+                        ? Object.values(state).flat().filter(Boolean).join(', ')
                         : null}
                     </p>
                     <Button type="submit" className="w-full " > Edit Endpoint Status </Button>    

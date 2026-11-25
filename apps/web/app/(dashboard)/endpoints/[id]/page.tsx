@@ -3,7 +3,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import getSession from "@/lib/session";
 import { prisma } from "@hookrelay/shared";
 import { notFound, redirect } from "next/navigation";
-import EditEndpointStatusForm from "../ui/updateEndpointStatusForm";
+import EditEndpointStatusForm from "../ui/forms/updateEndpointStatusForm";
 
 export default async function Page({
   params,

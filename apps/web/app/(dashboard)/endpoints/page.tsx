@@ -1,8 +1,8 @@
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import CreateEndpointForm from "./ui/createEndpointForm";
+import CreateEndpointForm from "./ui/forms/createEndpointForm";
 import { Button } from "@/components/ui/button";
-import { DataTable } from "./ui/data-table";
-import { columns } from "./ui/columns";
+import { DataTable } from "./ui/table/data-table";
+import { columns } from "./ui/table/columns";
 import { prisma } from "@hookrelay/shared";
 import getSession from "@/lib/session";
 import { redirect } from "next/navigation";
