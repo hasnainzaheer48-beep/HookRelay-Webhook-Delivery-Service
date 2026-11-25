@@ -16,6 +16,7 @@ import {  useRouter } from "next/navigation"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 
 import EditEndpointForm from "./editEndpointForm"
+import { deleteEndpoint } from "@/actions/endpoint.actions"
 
 
 export interface Endpoint {
@@ -48,6 +49,7 @@ export const columns = columnHelper.columns([
   columnHelper.accessor("createdAt", {
     header: "Created At",
   }),
+  
 
   columnHelper.display({
     id: "actions",
@@ -56,6 +58,7 @@ export const columns = columnHelper.columns([
  const router = useRouter()
  
       return (
+            <div>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="h-8 w-8 p-0">
@@ -91,9 +94,29 @@ export const columns = columnHelper.columns([
     <EditEndpointForm {...endpoint} />
   </DialogContent>
 </Dialog>
-            <DropdownMenuItem>Delete Endpoint</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
+
+
+
+    <Dialog>
+  <DialogTrigger asChild>
+       <Button variant={"destructive"}>Delete</Button>
+  </DialogTrigger>
+
+  <DialogContent>
+    <DialogHeader>
+      <DialogTitle>Delete Endpoint</DialogTitle>
+      <DialogDescription>
+        Delete Confirmation
+      </DialogDescription>
+    </DialogHeader>
+    Are you sure you want to delete this endpoint? 
+    <Button onClick={async() => await deleteEndpoint(endpoint.id)} variant={"destructive"}>Delete Endpoint</Button>
+  </DialogContent>
+</Dialog>
+
+</div>
       )
     },
   }),

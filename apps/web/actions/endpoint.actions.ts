@@ -2,8 +2,8 @@
 
 import getSession from "@/lib/session"
 import { revalidatePath } from "next/cache";
-import { endpointSchema, endpointStatusSchema } from "@/schemas/endpoint.schema";
-import { createEndpointService, editEndpointService, editEndpointStatusService } from "@/services/endpoint.services";
+import { endpointIdSchema, endpointSchema, endpointStatusSchema } from "@/schemas/endpoint.schema";
+import { createEndpointService, deleteEndpointService, editEndpointService, editEndpointStatusService } from "@/services/endpoint.services";
 
 
 
@@ -115,5 +115,29 @@ export async function editEndpointStatus(id: string, initialState: any, formData
         return {message: "Failed to edit the endpoint status"}
     }
 
+
+}
+
+
+export async function deleteEndpoint(endpointId: string)
+{
+     const session = await getSession()
+    //This checks if user is authenticated
+    if(!session?.user) {
+        return { message: "Unauthorized" };
+    }
+
+     const result = endpointIdSchema.safeParse(endpointId)
+
+     //checks if validation is succesful
+    if(!result.success)
+    {
+         return {
+      message: result.error.flatten().fieldErrors,
+    }
+    }
+
+    await deleteEndpointService( endpointId, session.user.id)
+    revalidatePath("/endpoints")
 
 }

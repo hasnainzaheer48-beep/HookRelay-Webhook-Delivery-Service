@@ -32,7 +32,8 @@ export async function editEndpointService(endpointId: string, endpointData : end
     const db = await prisma.endpoint.updateMany({
         where: {
             id: endpointId,
-            userId: userId
+            userId: userId,
+            status: {not: "disabled"}
         },
         data: {
             url,
@@ -56,7 +57,8 @@ export async function editEndpointStatusService(endpointId: string, endpointData
     const result = await prisma.endpoint.updateMany({
         where: {
             id: endpointId,
-            userId: userId
+            userId: userId,
+            status: {not: "disabled"}
         },
         data: {
              status
@@ -68,4 +70,20 @@ export async function editEndpointStatusService(endpointId: string, endpointData
     {
         throw new Error("Not Found")
     }
+}
+
+export async function deleteEndpointService(endpointId: string, userId: string){
+    
+        const result = await prisma.endpoint.deleteMany({
+            where:{
+                id: endpointId,
+                userId
+            }
+        })
+
+         if(result.count === 0)
+        {
+            throw new Error("Not Found")
+        }
+   
 }

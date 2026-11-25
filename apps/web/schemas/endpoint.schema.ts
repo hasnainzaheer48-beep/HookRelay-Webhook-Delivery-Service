@@ -22,3 +22,5 @@ export const endpointSchema = z.object({
 })
 
 export const endpointStatusSchema = z.enum(["active", "paused"])
+
+export const endpointIdSchema = z.string().min(1)
