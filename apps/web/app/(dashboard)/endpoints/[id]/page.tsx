@@ -1,9 +1,9 @@
-import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+
 import getSession from "@/lib/session";
 import { prisma } from "@hookrelay/shared";
 import { notFound, redirect } from "next/navigation";
-import EditEndpointStatusForm from "../ui/forms/updateEndpointStatusForm";
+import { EndpointStatusDialogue } from "../ui/dialogues/endpointStatusDialogue";
+
 
 export default async function Page({
   params,
@@ -40,6 +40,8 @@ export default async function Page({
   updatedAt,
   url,
 } = data;
+
+
     return(
             <div className="px-8 py-16 container mx-auto max-w-full space-y-8 flex justify-between ">
                 <div>
@@ -60,26 +62,8 @@ export default async function Page({
             Updated At: {updatedAt?.toLocaleDateString()} <br />
             </div>
             <div>
-
-            <Dialog>
-            <DialogTrigger asChild>
-                <Button variant={"outline"} size={"lg"}>    
-                Update Endpoint Status
-                </Button>
-                </DialogTrigger>
-            <DialogContent>
-            <DialogHeader>
-            <DialogTitle>Update Endpoint Status</DialogTitle>
-            <DialogDescription>
-                    Update the status of endpoint
-            </DialogDescription>
-            </DialogHeader>
-            {
-                status !== 'disabled' &&
-            <EditEndpointStatusForm status={status} id={id}  /> 
-            }
-            </DialogContent>
-            </Dialog>
+            <EndpointStatusDialogue id={id} status={status} />
+            
             </div>
             </div>
         )

@@ -3,30 +3,45 @@ import { editEndpoint } from "@/actions/endpoint.actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
+import { toast } from "sonner";
 
 const initialState = {
   message: '',
 }
 
-export default function EditEndpointForm(endpoint :  {
-  id: string;
-  url: string;
-  status: "active" | "paused" | "disabled"
-  rateLimitPerSec: number; 
-  description: string | null;
-  eventTypes: string[];
-} )
-
-{
-    const {id,
+export default function EditEndpointForm({
+    id,
         url,
         rateLimitPerSec,
         description,
         eventTypes,
-    } = endpoint
+        onSuccess
+    }  :  {
+  id: string,
+  url: string,
+  status: "active" | "paused" | "disabled",
+  rateLimitPerSec: number,
+  description: string | null,
+  eventTypes: string[]
+  onSuccess: ()=> void
+}
+ )
+
+{
+    
     const editEndpointWithId = editEndpoint.bind(null, id)
     const [state, formAction, pending] = useActionState(editEndpointWithId, initialState)
+
+    useEffect(()=>{
+        if(state.success)
+        {
+            onSuccess()
+            toast.success("Endpoint Edited Successfully")
+        }
+    },
+    [state]
+)
     return(
             <form action={formAction} className="max-w-sm w-full space-y-4">
                     <div className="space-y-2">

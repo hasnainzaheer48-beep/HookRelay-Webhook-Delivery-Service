@@ -4,12 +4,13 @@ import { Button } from "@/components/ui/button";
 
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { EndpointStatus } from "@hookrelay/shared/src/generated/prisma/enums";
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
+import { toast } from "sonner";
 
 interface endpointData{
     status: EndpointStatus,
-
-    id: string
+    id: string,
+    onSuccess : () => void
 }
 
 const initialState = {
@@ -17,13 +18,22 @@ const initialState = {
 }
 
 
-export default function EditEndpointStatusForm(endpointData :  endpointData )
+export default function EditEndpointStatusForm(endpointData :  endpointData,  )
 {
     const {id,
-        status
+        status,
+        onSuccess
     } = endpointData
     const editEndpointStatusWithId = editEndpointStatus.bind(null, id)
+
     const [state, formAction, pending] = useActionState(editEndpointStatusWithId, initialState)
+    useEffect(()=>{
+        if(state.success)
+        {
+            onSuccess();
+            toast.success("Status Updated")
+        }
+    }, [state])
     return(
             <form action={formAction} className="max-w-sm w-full space-y-4">
                     

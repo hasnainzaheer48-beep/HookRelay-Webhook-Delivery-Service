@@ -1,12 +1,11 @@
 "use client"
 
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { MoreHorizontal } from "lucide-react";
 import { useRouter } from "next/navigation";
-import EditEndpointForm from "./forms/editEndpointForm";
 import { useState, useTransition } from "react";
+import { EditEndpointDialogue } from "./dialogues/editEndpointDialogue";
 
  export interface Endpoint {
   id: string;
@@ -40,25 +39,9 @@ import { useState, useTransition } from "react";
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={() => router.push(`/endpoints/${endpoint.id}`)} >View Details</DropdownMenuItem>
-           <Dialog>
-  <DialogTrigger asChild>
-    <DropdownMenuItem
-      onSelect={(e) => e.preventDefault()}
-    >
-      Edit Endpoint
-    </DropdownMenuItem>
-  </DialogTrigger>
-
-  <DialogContent>
-    <DialogHeader>
-      <DialogTitle>Edit Endpoint</DialogTitle>
-      <DialogDescription>
-        Edit your endpoint details.
-      </DialogDescription>
-    </DialogHeader>
-    <EditEndpointForm {...endpoint} />
-  </DialogContent>
-</Dialog>
+            <DropdownMenuItem onSelect={(e)=> e.preventDefault()}>
+              <EditEndpointDialogue {...endpoint} />              
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
     )
