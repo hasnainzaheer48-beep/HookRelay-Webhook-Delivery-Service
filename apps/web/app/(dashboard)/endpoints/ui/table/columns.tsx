@@ -1,12 +1,7 @@
 "use client"
 
 import { createColumnHelper } from "@tanstack/react-table"
-import { type DataTableFeatures } from "./data-table-features"
-import { Button } from "@/components/ui/button"
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
-import { deleteEndpoint } from "@/actions/endpoint.actions"
-import { useState, useTransition } from "react"
-import { toast } from "sonner"
+import { type DataTableFeatures } from "../../../../../components/ui/data-table-features"
 import { ColumnActions } from "../column-actions"
 import { DeleteEndpointButton } from "../delete-endpoint-button"
 
