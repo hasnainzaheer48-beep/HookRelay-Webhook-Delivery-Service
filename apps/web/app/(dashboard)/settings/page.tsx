@@ -1,3 +1,5 @@
+import { CreateAPISecretDialogue } from "./ui/dialogues/createAPISecretDialogue";
+
 export default async function Page()
 {
    
@@ -9,8 +11,7 @@ export default async function Page()
                 <h1 className="text-3xl font-bold ">Settings</h1>
             </div>
            
-            <pre className="text-sm overflow-clip ">   
-            </pre>
+            <CreateAPISecretDialogue />
             </div>
         )
 }
