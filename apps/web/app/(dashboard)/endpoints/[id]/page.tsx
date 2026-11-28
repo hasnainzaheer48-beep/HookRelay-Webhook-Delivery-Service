@@ -3,6 +3,7 @@ import getSession from "@/lib/session";
 import { prisma } from "@hookrelay/shared";
 import { notFound, redirect } from "next/navigation";
 import { EndpointStatusDialogue } from "../ui/dialogues/endpointStatusDialogue";
+import { DisplaySecretDialogue } from "../ui/dialogues/displaySecretDialogue";
 
 
 export default async function Page({
@@ -63,7 +64,7 @@ export default async function Page({
             </div>
             <div>
             <EndpointStatusDialogue id={id} status={status} />
-            
+            <DisplaySecretDialogue id={id} />
             </div>
             </div>
         )
