@@ -7,7 +7,7 @@ import { createAPIservice } from "@/services/api.services";
 import { createHash } from "crypto";
 import { revalidatePath } from "next/cache";
 
-export async function createAPI(formData : FormData )
+export async function createAPI( formData : FormData )
 {
     const session = await getSession()
         if(!session?.user) {
@@ -26,27 +26,21 @@ export async function createAPI(formData : FormData )
 
     const {name} = result.data
     const {id} = session.user
-
-      const token = generateAPIToken("hr_live_", 32);
-    
-    const hash = createHash('sha256').update(token).digest('hex')
     
     try{
         const result = await createAPIservice({
             name,
             id,
-            token: token.substring(0,12),
-            hash
         })
         revalidatePath("/settings")
         return {
             success: true,
-            key: token
+            key: result
         }
     }
-    catch(error)
+    catch
     {
-        console.error(error)
+        
         return{
             success: false,
             message: "Failed to create the API key"
