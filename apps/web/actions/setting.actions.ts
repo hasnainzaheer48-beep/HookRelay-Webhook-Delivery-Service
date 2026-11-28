@@ -2,13 +2,10 @@
 
 import getSession from "@/lib/session";
 import { generateAPIToken } from "@/lib/utils";
-import { prisma, z } from "@hookrelay/shared";
-import { createHash } from "node:crypto";
-
-
-const APIschema = z.object({
-    name: z.string().min(0, "API must be given a name")
-})
+import { APIschema } from "@/schemas/api.schema";
+import { createAPIservice } from "@/services/api.services";
+import { createHash } from "crypto";
+import { revalidatePath } from "next/cache";
 
 export async function createAPI(formData : FormData )
 {
@@ -28,17 +25,34 @@ export async function createAPI(formData : FormData )
     }
 
     const {name} = result.data
-    const token = generateAPIToken("hr_live_", 32);
+    const {id} = session.user
 
+      const token = generateAPIToken("hr_live_", 32);
+    
     const hash = createHash('sha256').update(token).digest('hex')
-
-    await prisma.apiKey.create({
-        data: {
-            userId: session.user.id,
+    
+    try{
+        const result = await createAPIservice({
             name,
-            keyPrefix: token.substring(0,12),
-            keyHash: hash
+            id,
+            token: token.substring(0,12),
+            hash
+        })
+        revalidatePath("/settings")
+        return {
+            success: true,
+            key: token
         }
-    })
+    }
+    catch(error)
+    {
+        console.error(error)
+        return{
+            success: false,
+            message: "Failed to create the API key"
+        }
+    }
+
+    
 
 }
