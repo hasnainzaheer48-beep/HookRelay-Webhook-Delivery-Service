@@ -11,6 +11,7 @@
   "dependencies": {
     "@hookrelay/shared": "workspace:*",
     "@next/env": "16.4.5",
+    "@tanstack/react-table": "^9.3.1",
     "better-auth": "^1.7.20",
     "class-variance-authority": "^0.7.1",
     "cn": "^0.5.2",
