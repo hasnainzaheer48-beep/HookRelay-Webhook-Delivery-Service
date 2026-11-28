@@ -19,3 +19,23 @@ export async function createAPIservice({id, name}: {id: string, name:string})
 
     return token
 }
+
+export async function revokeAPIservice({id, userId} : {id: string, userId: string})
+{
+    const result  = await prisma.apiKey.updateMany({
+        where: {
+            id,
+            userId,
+            revokedAt: null
+        },
+        data:
+        {
+            revokedAt: new Date()
+        }
+    })
+
+    if(result.count === 0)
+    {
+        throw new Error("Not Found")
+    }
+}

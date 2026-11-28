@@ -14,7 +14,8 @@ export default async function Page()
        }
        const records = await prisma.apiKey.findMany({
            where: {
-               userId: session?.user.id
+               userId: session?.user.id,
+               
            },
            select: {
                 id: true,
